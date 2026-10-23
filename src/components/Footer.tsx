@@ -95,7 +95,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="mx-auto xl:ml-50 bg-[#140D0B] font-mono text-[#F5F1EB]">
+    <footer className="mx-auto  bg-[#140D0B] font-mono text-[#F5F1EB]">
       {/* ===== 1. Destaques + newsletter ===== */}
       <div className="bg-[#26180F]">
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-6 py-10 sm:grid-cols-2 lg:grid-cols-4">

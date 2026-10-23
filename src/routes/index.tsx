@@ -4,7 +4,13 @@ import Products from "../components/Products";
 import PromoSection from "../components/PromoSection";
 import DiarySection from "../components/DiarySection";
 import Footer from "../components/Footer";
-export const Route = createFileRoute("/")({ component: Home });
+import { parseCatalogSearch } from "@/lib/contracts";
+
+export const Route = createFileRoute("/")({
+  validateSearch: (search: Record<string, unknown>) =>
+    parseCatalogSearch(search),
+  component: Home, // o que já estava aí
+});
 
 function Home() {
   return (

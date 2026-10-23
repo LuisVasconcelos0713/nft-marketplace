@@ -2,7 +2,7 @@ import CardPromo from "./CardPromo";
 
 const PromoSection = () => {
   return (
-    <section className="mx-auto xl:ml-50 flex w-full max-w-5xl flex-wrap items-stretch justify-center gap-4 px-4 py-6 sm:px-0">
+    <section className="mx-auto flex w-full max-w-5xl flex-wrap items-stretch justify-center gap-4 px-4 py-6 sm:px-0">
       <CardPromo
         titulo="Lançamentos gênesis de edição limitada"
         descricao="Colecione edições escassas diretamente dos criadores antes da revelação pública."
