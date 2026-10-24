@@ -57,12 +57,9 @@ export default function Navbar() {
             <ShoppingCart size={18} />
           </Link>
 
-          <Link
-            to="/login"
-            className="rounded bg-[#E89B55] px-4 py-2 text-sm font-semibold text-[#201108] transition-colors hover:bg-[#f2ad6c]"
-          >
+          <button className="rounded bg-[#E89B55] px-4 py-2 text-sm font-semibold text-[#201108] transition-colors hover:bg-[#f2ad6c]">
             Entrar
-          </Link>
+          </button>
         </div>
       </nav>
     </header>
