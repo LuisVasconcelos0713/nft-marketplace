@@ -1,6 +1,9 @@
 import { NftSchema, type NFT } from "../lib/schemas";
 
-const image = "/images/8459204731e6eba9d474cbc8ebc37071360d3ba5%20(2).png";
+const image = "/images/2986a7cb16d09de8970824d2dd58bf0bb021702c (3).png";
+const image2 = "/images/8459204731e6eba9d474cbc8ebc37071360d3ba5 (2).png";
+const image3 = "/images/87580f2def9af0ce13f4b6f6ce17bb2449bcfc16 (1).png";
+const image4 = "/images/9df2ff42dd27ba657621c304557d1a855a4be6a5 (2).png";
 
 const nftFixtures = [
   {
@@ -9,7 +12,7 @@ const nftFixtures = [
     tokenId: "8042",
     collection: "Kurio Apes",
     category: "Arte digital",
-    image,
+    image: image2,
     priceEth: "1.19",
     network: "Ethereum",
     available: 5,
@@ -61,7 +64,7 @@ const nftFixtures = [
     tokenId: "8552",
     collection: "Neon Collection",
     category: "Arte 3D",
-    image,
+    image: image3,
     priceEth: "1.99",
     previousPriceEth: "2.29",
     network: "Ethereum",
@@ -88,7 +91,7 @@ const nftFixtures = [
     tokenId: "8118",
     collection: "Cosmic Apes",
     category: "Arte digital",
-    image,
+    image: image4,
     priceEth: "1.29",
     network: "Ethereum",
     available: 12,
@@ -113,7 +116,7 @@ const nftFixtures = [
     tokenId: "8314",
     collection: "Nomad Apes",
     category: "Fotografia",
-    image,
+    image: image2,
     priceEth: "1.39",
     network: "Polygon",
     available: 7,
@@ -138,7 +141,7 @@ const nftFixtures = [
     tokenId: "8888",
     collection: "Ivory Collection",
     category: "Colecionáveis",
-    image,
+    image: image4,
     priceEth: "1.79",
     network: "Ethereum",
     available: 4,
@@ -188,7 +191,7 @@ const nftFixtures = [
     tokenId: "8163",
     collection: "Golden Collection",
     category: "Arte digital",
-    image,
+    image: image4,
     priceEth: "0.79",
     network: "Ethereum",
     available: 10,
