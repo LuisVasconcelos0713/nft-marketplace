@@ -44,8 +44,6 @@ export const ApiErrorSchema = z.object({
 });
 export type ApiError = z.infer<typeof ApiErrorSchema>;
 
-/* ---------- Leitura segura dos filtros que vêm da URL ---------- */
-
 const toText = (value: unknown) =>
   (typeof value === "string" || typeof value === "number") &&
   String(value).trim()

@@ -3,7 +3,7 @@ import ArticleCard from "./ArticleCard";
 
 const DiarySection = () => {
   return (
-    <section className="mx-auto   w-full max-w-5xl px-4 py-10 sm:px-0">
+    <section className="mx-auto pb-24 w-full max-w-5xl px-4 py-12 sm:px-0">
       <header className="mb-6 text-center">
         <h2 className="font-mono text-xl font-bold text-[#F5F1EB] sm:text-2xl">
           Diário da Cunhagem

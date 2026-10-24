@@ -2,6 +2,7 @@ import { http, HttpResponse, delay } from "msw";
 import Decimal from "decimal.js";
 import { db } from "./db";
 import { SORT_OPTIONS, type ApiError } from "@/lib/contracts";
+import { orderHandlers } from "./orderHandlers";
 
 const DEFAULT_PAGE_SIZE = 6;
 const MAX_PAGE_SIZE = 24;
@@ -10,8 +11,8 @@ const fail = (error: ApiError, status: number) =>
   HttpResponse.json(error, { status });
 
 export const handlers = [
+  ...orderHandlers,
   http.get("/api/health", () => HttpResponse.json({ ok: true })),
-
   /* Listagem com busca, filtros, ordenação e paginação */
   http.get("/api/nfts", async ({ request }) => {
     const params = new URL(request.url).searchParams;

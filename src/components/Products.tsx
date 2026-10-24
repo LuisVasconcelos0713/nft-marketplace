@@ -5,6 +5,7 @@ import { nftQueryOptions, nftsQueryOptions } from "@/api/nftsApi";
 import { SORT_OPTIONS } from "@/lib/contracts";
 import type { CatalogSearch } from "@/lib/contracts";
 import { focusRing } from "@/lib/ui";
+import { useState } from "react";
 
 // Os filtros vivem na URL da rota "/" (busca, categoria, rede, ordenação e página)
 const route = getRouteApi("/");
@@ -72,10 +73,30 @@ function Products() {
       search: (prev) => ({ ...prev, page: number > 1 ? number : undefined }),
     });
 
+  const [activeTypeCatalog, setActiveType] = useState("home");
+
+  const handleClick = (typeCatalog) => {
+    if (typeCatalog === "Todos os NFTs") {
+      navigate({ search: {} });
+      setActiveType("home");
+    }
+    if (typeCatalog === "Novos lançamentos") {
+      setFilters({ sort: "recent" });
+      setActiveType("new");
+    }
+    if (typeCatalog === "Em alta") {
+      setFilters({ sort: "price-desc" });
+      setActiveType("trending");
+    }
+  };
+
+  const activeTypeCatalogClass = `border-b-2 border-[#E89B55] pb-2 text-[#E89B55] ${focusRing}`;
+  const inactiveTypeCatalogClass = `pb-2 text-[#F5F1EB] hover:text-[#E89B55] ${focusRing}`;
+
   const totalPages = catalog.data?.totalPages ?? 1;
 
   return (
-    <main className="mx-auto lg:min-h-screen w-full max-w-7xl px-4 py-8 text-[#F5F1EB] md:px-6">
+    <main className="mx-auto w-full max-w-7xl px-4 pt-8 pb-20 text-[#F5F1EB] md:px-6">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-[250px_minmax(0,1fr)] md:gap-7">
         {/* SIDEBAR */}
         <aside className="space-y-3">
@@ -89,7 +110,9 @@ function Products() {
                   type="button"
                   aria-pressed={category === name}
                   onClick={() =>
-                    setFilters({ category: category === name ? undefined : name })
+                    setFilters({
+                      category: category === name ? undefined : name,
+                    })
                   }
                   className={filterClass(category === name)}
                 >
@@ -109,7 +132,9 @@ function Products() {
               <p className="mt-3 text-[#D0BBA3]">Preço: 0,02 – 12,30 ETH</p>
               <button
                 type="button"
-                onClick={() => setFilters({ category: undefined, network: undefined })}
+                onClick={() =>
+                  setFilters({ category: undefined, network: undefined })
+                }
                 className={`mt-3 rounded bg-[#D28A4C] px-3 py-1.5 font-bold text-[#140D0A] hover:bg-[#E5A264] ${focusRing}`}
               >
                 Aplicar
@@ -125,7 +150,9 @@ function Products() {
                     type="button"
                     aria-pressed={network === name}
                     onClick={() =>
-                      setFilters({ network: network === name ? undefined : name })
+                      setFilters({
+                        network: network === name ? undefined : name,
+                      })
                     }
                     className={filterClass(network === name)}
                   >
@@ -162,22 +189,34 @@ function Products() {
             <div className="flex flex-wrap gap-4">
               <button
                 type="button"
-                onClick={() => navigate({ search: {} })}
-                className={`border-b-2 border-[#E89B55] pb-2 text-[#E89B55] ${focusRing}`}
+                onClick={() => handleClick("Todos os NFTs")}
+                className={
+                  activeTypeCatalog === "home"
+                    ? activeTypeCatalogClass
+                    : inactiveTypeCatalogClass
+                }
               >
                 Todos os NFTs
               </button>
               <button
                 type="button"
-                onClick={() => setFilters({ sort: "recent" })}
-                className={`pb-2 text-[#F5F1EB] hover:text-[#E89B55] ${focusRing}`}
+                onClick={() => handleClick("Novos lançamentos")}
+                className={
+                  activeTypeCatalog === "new"
+                    ? activeTypeCatalogClass
+                    : inactiveTypeCatalogClass
+                }
               >
                 Novos lançamentos
               </button>
               <button
                 type="button"
-                onClick={() => setFilters({ sort: "price-desc" })}
-                className={`pb-2 text-[#F5F1EB] hover:text-[#E89B55] ${focusRing}`}
+                onClick={() => handleClick("Em alta")}
+                className={
+                  activeTypeCatalog === "trending"
+                    ? activeTypeCatalogClass
+                    : inactiveTypeCatalogClass
+                }
               >
                 Em alta
               </button>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Heart, Mail, Minus, Plus, Star } from "lucide-react";
-import type { NFT } from "../../lib/schemas";
-import { LinkedinIcon, TwitterIcon } from "../../assets/SocialIcons";
-import { focusRing } from "../../lib/ui";
+import type { NFT } from "@/lib/schemas";
+import { LinkedinIcon, TwitterIcon } from "@/assets/SocialIcons";
+import { focusRing } from "@/lib/ui";
+import { addToCart, useCart } from "@/lib/cart";
 
 type NftSummaryProps = { nft: NFT };
 
@@ -22,6 +23,27 @@ const NftSummary = ({ nft }: NftSummaryProps) => {
     nft.edition.isOpen ? "open" : `${nft.edition.number}/${nft.edition.total}`,
   );
   const [quantity, setQuantity] = useState(nft.minQuantity);
+  const [cartMessage, setCartMessage] = useState("");
+  const { quantityOf } = useCart();
+
+  const inCart = quantityOf(nft.id);
+
+  const handleBuy = () => {
+    // Não deixa o carrinho passar do estoque disponível
+    const remaining = nft.available - inCart;
+    const toAdd = Math.min(quantity, remaining);
+
+    if (toAdd <= 0) {
+      setCartMessage("Você já adicionou o máximo disponível deste NFT.");
+      return;
+    }
+    addToCart(nft.id, toAdd);
+    setCartMessage(
+      toAdd < quantity
+        ? `Adicionamos ${toAdd} (limite de disponibilidade) ao carrinho.`
+        : `${toAdd} ${toAdd === 1 ? "item adicionado" : "itens adicionados"} ao carrinho.`,
+    );
+  };
 
   const soldOut = nft.available === 0;
   const canDecrease = quantity > nft.minQuantity;
@@ -101,7 +123,7 @@ const NftSummary = ({ nft }: NftSummaryProps) => {
         </div>
       </fieldset>
 
-      {/* Quantidade + ações. COMPRAR e Favoritar são ligados na etapa de lógica. */}
+      {/* Quantidade + ações. COMPRAR adiciona ao carrinho; Favoritar entra na etapa de lógica. */}
       <div className="flex flex-wrap items-center gap-3">
         <div
           role="group"
@@ -138,6 +160,7 @@ const NftSummary = ({ nft }: NftSummaryProps) => {
         <button
           type="button"
           disabled={soldOut}
+          onClick={handleBuy}
           className={`rounded bg-[#CF8A4B] px-6 py-2 text-xs font-bold uppercase tracking-wide text-[#26180F] transition-colors hover:bg-[#E0A066] disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
         >
           {soldOut ? "Indisponível" : "Comprar"}
@@ -151,6 +174,11 @@ const NftSummary = ({ nft }: NftSummaryProps) => {
           Favoritar
         </button>
       </div>
+
+      {/* Feedback do carrinho: role="status" faz leitores de tela anunciarem a mudança */}
+      <p role="status" className="min-h-5 text-xs text-[#CF8A4B]">
+        {cartMessage}
+      </p>
 
       {/* Metadados */}
       <ul className="space-y-1 text-[11px] text-[#B99665] sm:text-xs">

@@ -68,14 +68,18 @@ function NftDetailPage() {
   const nft = nftQuery.data;
   // Provisório: o schema só tem uma imagem, então a galeria repete a mesma 4 vezes.
   const images = [nft.image, nft.image, nft.image, nft.image];
-  const related = relatedQuery.data?.items.filter((item) => item.id !== nft.id) ?? [];
+  const related =
+    relatedQuery.data?.items.filter((item) => item.id !== nft.id) ?? [];
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 font-mono text-[#F5F1EB]">
       <nav aria-label="Trilha de navegação" className="text-xs text-[#B99665]">
         <ol className="flex items-center gap-2">
           <li>
-            <Link to="/" className={`hover:text-[#CF8A4B] hover:underline ${focusRing}`}>
+            <Link
+              to="/"
+              className={`hover:text-[#CF8A4B] hover:underline ${focusRing}`}
+            >
               Início
             </Link>
           </li>
@@ -84,7 +88,6 @@ function NftDetailPage() {
         </ol>
       </nav>
 
-      {/* key = id: ao navegar de um NFT para outro, o estado local (quantidade, edição, foto) reinicia */}
       <div className="mt-4 grid gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <NftGallery key={`gallery-${nft.id}`} name={nft.name} images={images} />
         <NftSummary key={`summary-${nft.id}`} nft={nft} />
