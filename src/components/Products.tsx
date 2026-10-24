@@ -75,7 +75,7 @@ function Products() {
 
   const [activeTypeCatalog, setActiveType] = useState("home");
 
-  const handleClick = (typeCatalog) => {
+  const handleClick = (typeCatalog: string) => {
     if (typeCatalog === "Todos os NFTs") {
       navigate({ search: {} });
       setActiveType("home");
